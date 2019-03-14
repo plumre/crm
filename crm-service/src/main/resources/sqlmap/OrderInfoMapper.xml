@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+* 代码为自动生成 Created by www.magicalcoder.com
+* 如果你改变了此类 read 请将此行删除
+*  欢迎加入官方QQ群:323237052
+-->
+<mapper namespace="com...service.orderinfo.mapper.OrderInfoMapper">
+    <!-- OrderInfo -->
+    <resultMap id="resultMap" type="OrderInfo">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId" />
+        <result column="order_amount" property="orderAmount" />
+        <result column="is_promotion" property="isPromotion" />
+        <result column="discount" property="discount" />
+        <result column="referer" property="referer" />
+        <result column="is_pay" property="isPay" />
+        <result column="pay_time" property="payTime" />
+        <result column="have_gift" property="haveGift" />
+        <result column="gift_detail" property="giftDetail" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+    <!-- 查询单个实体 -->
+    <select id="getModel" parameterType="hashmap" resultMap="resultMap">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from  <include refid="tableSql"/>  where 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+    </select>
+    <!--根据主键 查询单个实体 -->
+    <select id="getModelByPk" parameterType="hashmap" resultMap="resultMap">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from  <include refid="tableSql"/>  <include refid="magicalcoderPkWhereSql"/>
+    </select>
+    <!-- 查询一组实体 -->
+    <select id="getModelList" parameterType="hashmap" resultMap="resultMap">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from  <include refid="tableSql"/>  where 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+    </select>
+    <!-- 查询一组实体 in 语句-->
+    <select id="getModelInList" parameterType="hashmap" resultMap="resultMap">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from  <include refid="tableSql"/>  where  `id` in
+        <foreach item="id" index="index" collection="idList" open="(" separator="," close=")">#{id}</foreach>
+        <include refid="orderGroupLimit"/>
+    </select>
+    <!-- 查询一组实体的数量 -->
+    <select id="getModelListCount" parameterType="hashmap" resultType="int">
+        select count(1)  from  <include refid="tableSql"/>  where 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+    </select>
+    <!-- 插入单个实体 遇到入参null转换成数据库NULL-->
+    <insert id="insertModel" parameterType="OrderInfo"  useGeneratedKeys="true" keyProperty="id" >
+        insert into <include refid="tableSql"/> (<include refid="douFieldSql"/>) values(<include refid="douValueSql"/>)
+    </insert>
+    <!-- 替换单个实体 如果没有则插入 遇到入参null转换成数据库NULL-->
+    <insert id="replaceModel" parameterType="OrderInfo"  useGeneratedKeys="true" keyProperty="id" >
+        replace into <include refid="tableSql"/> (<include refid="douFieldSql"/>) values(<include refid="douValueSql"/>)
+    </insert>
+    <!-- 插入单个实体 遇到入参null转换成数据库默认值-->
+    <insert id="insertModelWithoutNull" parameterType="OrderInfo"  useGeneratedKeys="true" keyProperty="id" >
+        insert into <include refid="tableSql"/> (<include refid="douFieldWithoutNullSql"/>) values(<include refid="douValueWithoutNullSql"/>)
+    </insert>
+    <!-- 替换单个实体 如果没有则插入 遇到入参null转换成数据库默认值-->
+    <insert id="replaceModelWithoutNull" parameterType="OrderInfo"  useGeneratedKeys="true" keyProperty="id" >
+        replace into <include refid="tableSql"/> (<include refid="douFieldWithoutNullSql"/>) values(<include refid="douValueWithoutNullSql"/>)
+    </insert>
+    <!-- 批量插入一组实体 -->
+    <insert id="batchInsertModel" parameterType="java.util.List"   useGeneratedKeys="true" keyProperty="id" >
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            insert into <include refid="tableSql"/> (<include refid="batchDouFieldSql"/>) values (<include refid="batchDouValueSql"/>)
+        </foreach>
+    </insert>
+    <!-- 批量替换一组实体 -->
+    <insert id="batchReplaceModel" parameterType="java.util.List"  useGeneratedKeys="true" keyProperty="id" >
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            replace into <include refid="tableSql"/> (<include refid="batchDouFieldSql"/>) values (<include refid="batchDouValueSql"/>)
+        </foreach>
+    </insert>
+    <insert id="batchInsertModelWithoutNull" parameterType="java.util.List"   useGeneratedKeys="true" keyProperty="id" >
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            insert into <include refid="tableSql"/> (<include refid="batchDouFieldWithoutNullSql"/>) values (<include refid="batchDouValueWithoutNullSql"/>)
+        </foreach>
+    </insert>
+    <insert id="batchReplaceModelWithoutNull" parameterType="java.util.List"  useGeneratedKeys="true" keyProperty="id" >
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            replace into <include refid="tableSql"/> (<include refid="batchDouFieldWithoutNullSql"/>) values (<include refid="batchDouValueWithoutNullSql"/>)
+        </foreach>
+    </insert>
+
+        <!-- 清空表 操作危险 慎用，暂时注销掉-->
+    <delete id="truncateModel">
+        -- truncate table <include refid="tableSql"/>
+    </delete>
+
+    <!-- 根据主键删除一个实体 magicalCoderPrimaryKeyName 框架封装-->
+    <delete id="deleteModelByPk" parameterType="hashmap">
+        delete from <include refid="tableSql"/> <include refid="magicalcoderPkWhereSql"/>
+    </delete>
+
+    <delete id="deleteModelList" parameterType="hashmap">
+        delete from <include refid="tableSql"/> where 1=1 <include refid="whereSqlModel"/>
+    </delete>
+
+    <!-- 批量删除实体 in 根据主键-->
+    <delete id="deleteModelByIds" parameterType="java.util.Set">
+        delete from <include refid="tableSql"/> where `id` in <foreach item="id" index="index" collection="collection" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+    <!-- 更新一个实体 -->
+    <update id="updateModel" parameterType="OrderInfo">
+        update <include refid="tableSql"/> <include refid="updateSetSql"/> <include refid="updatePkWhereSql"/>
+    </update>
+    <!-- 更新一个实体 仅仅当被更新的字段不为空的时候才更新，否则忽略更新-->
+    <update id="updateModelWithoutNull" parameterType="OrderInfo">
+        update <include refid="tableSql"/> <include refid="updateSetWithoutNullSql"/> <include refid="updatePkWhereSql"/>
+    </update>
+     <!-- 批量更新实体 传入一组实体，分别根据主键作为查询条件-->
+    <update id="batchUpdateModel" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update <include refid="tableSql"/> <include refid="batchUpdateSetSql"/> <include refid="batchUpdatePkWhereSql"/>
+        </foreach>
+    </update>
+    <update id="batchUpdateModelWithoutNull" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update <include refid="tableSql"/> <include refid="batchUpdateWithoutNullSetSql"/> <include refid="batchUpdatePkWhereSql"/>
+        </foreach>
+    </update>
+    <!-- sql 片段 -->
+   <sql id="selectSqlIgnoreModel">
+        <trim suffixOverrides=",">
+            <if test="idIgnore_ == null or !idIgnore_">`id`,</if>
+            <if test="userIdIgnore_ == null or !userIdIgnore_">`user_id`,</if>
+            <if test="orderAmountIgnore_ == null or !orderAmountIgnore_">`order_amount`,</if>
+            <if test="isPromotionIgnore_ == null or !isPromotionIgnore_">`is_promotion`,</if>
+            <if test="discountIgnore_ == null or !discountIgnore_">`discount`,</if>
+            <if test="refererIgnore_ == null or !refererIgnore_">`referer`,</if>
+            <if test="isPayIgnore_ == null or !isPayIgnore_">`is_pay`,</if>
+            <if test="payTimeIgnore_ == null or !payTimeIgnore_">`pay_time`,</if>
+            <if test="haveGiftIgnore_ == null or !haveGiftIgnore_">`have_gift`,</if>
+            <if test="giftDetailIgnore_ == null or !giftDetailIgnore_">`gift_detail`,</if>
+            <if test="createTimeIgnore_ == null or !createTimeIgnore_">`create_time`,</if>
+            <if test="updateTimeIgnore_ == null or !updateTimeIgnore_">`update_time`</if>
+        </trim>
+    </sql>
+    <sql id="selectSqlNotIgnoreModel">
+        <trim suffixOverrides=",">
+         <if test="idNotIgnore_ != null and idNotIgnore_">`id`,</if>
+         <if test="userIdNotIgnore_ != null and userIdNotIgnore_">`user_id`,</if>
+         <if test="orderAmountNotIgnore_ != null and orderAmountNotIgnore_">`order_amount`,</if>
+         <if test="isPromotionNotIgnore_ != null and isPromotionNotIgnore_">`is_promotion`,</if>
+         <if test="discountNotIgnore_ != null and discountNotIgnore_">`discount`,</if>
+         <if test="refererNotIgnore_ != null and refererNotIgnore_">`referer`,</if>
+         <if test="isPayNotIgnore_ != null and isPayNotIgnore_">`is_pay`,</if>
+         <if test="payTimeNotIgnore_ != null and payTimeNotIgnore_">`pay_time`,</if>
+         <if test="haveGiftNotIgnore_ != null and haveGiftNotIgnore_">`have_gift`,</if>
+         <if test="giftDetailNotIgnore_ != null and giftDetailNotIgnore_">`gift_detail`,</if>
+         <if test="createTimeNotIgnore_ != null and createTimeNotIgnore_">`create_time`,</if>
+         <if test="updateTimeNotIgnore_ != null and updateTimeNotIgnore_">`update_time`</if>
+        </trim>
+    </sql>
+    <sql id="douFieldSql">
+        <trim suffixOverrides=",">
+            <if test="id!=null">`id`,</if> `user_id`,`order_amount`,`is_promotion`,`discount`,`referer`,`is_pay`,`pay_time`,`have_gift`,`gift_detail`,`create_time`,`update_time`,
+        </trim>
+    </sql>
+    <sql id="douValueSql">
+        <trim suffixOverrides=",">
+                <choose><when test="id!=null">#{id},</when></choose>
+                <choose><when test="userId!=null">#{userId},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="orderAmount!=null">#{orderAmount},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="isPromotion!=null">#{isPromotion},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="discount!=null">#{discount},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="referer!=null">#{referer},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="isPay!=null">#{isPay},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="payTime!=null">#{payTime,jdbcType=TIMESTAMP},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="haveGift!=null">#{haveGift},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="giftDetail!=null">#{giftDetail},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="createTime!=null">#{createTime,jdbcType=TIMESTAMP},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="updateTime!=null">#{updateTime,jdbcType=TIMESTAMP},</when><otherwise>NULL,</otherwise></choose>
+        </trim>
+    </sql>
+
+    <sql id="douFieldWithoutNullSql">
+        <trim suffixOverrides=",">
+                <if test="id!=null">`id`,</if>
+                <if test="userId!=null">`user_id`,</if>
+                <if test="orderAmount!=null">`order_amount`,</if>
+                <if test="isPromotion!=null">`is_promotion`,</if>
+                <if test="discount!=null">`discount`,</if>
+                <if test="referer!=null">`referer`,</if>
+                <if test="isPay!=null">`is_pay`,</if>
+                <if test="payTime!=null">`pay_time`,</if>
+                <if test="haveGift!=null">`have_gift`,</if>
+                <if test="giftDetail!=null">`gift_detail`,</if>
+                <if test="createTime!=null">`create_time`,</if>
+                <if test="updateTime!=null">`update_time`,</if>
+
+        </trim>
+    </sql>
+    <sql id="douValueWithoutNullSql">
+        <trim suffixOverrides=",">
+                <choose><when test="id!=null">#{id},</when></choose>
+                <choose><when test="userId!=null">#{userId},</when></choose>
+                <choose><when test="orderAmount!=null">#{orderAmount},</when></choose>
+                <choose><when test="isPromotion!=null">#{isPromotion},</when></choose>
+                <choose><when test="discount!=null">#{discount},</when></choose>
+                <choose><when test="referer!=null">#{referer},</when></choose>
+                <choose><when test="isPay!=null">#{isPay},</when></choose>
+                <choose><when test="payTime!=null">#{payTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="haveGift!=null">#{haveGift},</when></choose>
+                <choose><when test="giftDetail!=null">#{giftDetail},</when></choose>
+                <choose><when test="createTime!=null">#{createTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="updateTime!=null">#{updateTime,jdbcType=TIMESTAMP},</when></choose>
+        </trim>
+    </sql>
+    <sql id="batchDouFieldSql">
+        <trim suffixOverrides=",">
+                <if test="item.id!=null">`id`,</if> `user_id`,`order_amount`,`is_promotion`,`discount`,`referer`,`is_pay`,`pay_time`,`have_gift`,`gift_detail`,`create_time`,`update_time`,
+        </trim>
+    </sql>
+    <sql id="batchDouValueSql">
+        <trim suffixOverrides=",">
+                <choose><when test="item.id!=null">#{item.id},</when></choose>
+                <choose><when test="item.userId!=null">#{item.userId},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.orderAmount!=null">#{item.orderAmount},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.isPromotion!=null">#{item.isPromotion},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.discount!=null">#{item.discount},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.referer!=null">#{item.referer},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.isPay!=null">#{item.isPay},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.payTime!=null">#{item.payTime,jdbcType=TIMESTAMP},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.haveGift!=null">#{item.haveGift},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.giftDetail!=null">#{item.giftDetail},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.createTime!=null">#{item.createTime,jdbcType=TIMESTAMP},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.updateTime!=null">#{item.updateTime,jdbcType=TIMESTAMP},</when><otherwise>NULL,</otherwise></choose>
+        </trim>
+    </sql>
+    <sql id="batchDouFieldWithoutNullSql">
+        <trim suffixOverrides=",">
+                <if test="item.id!=null">`id`,</if>
+                <if test="item.userId!=null">`user_id`,</if>
+                <if test="item.orderAmount!=null">`order_amount`,</if>
+                <if test="item.isPromotion!=null">`is_promotion`,</if>
+                <if test="item.discount!=null">`discount`,</if>
+                <if test="item.referer!=null">`referer`,</if>
+                <if test="item.isPay!=null">`is_pay`,</if>
+                <if test="item.payTime!=null">`pay_time`,</if>
+                <if test="item.haveGift!=null">`have_gift`,</if>
+                <if test="item.giftDetail!=null">`gift_detail`,</if>
+                <if test="item.createTime!=null">`create_time`,</if>
+                <if test="item.updateTime!=null">`update_time`,</if>
+
+        </trim>
+    </sql>
+    <sql id="batchDouValueWithoutNullSql">
+        <trim suffixOverrides=",">
+                <choose><when test="item.id!=null">#{item.id},</when></choose>
+                <choose><when test="item.userId!=null">#{item.userId},</when></choose>
+                <choose><when test="item.orderAmount!=null">#{item.orderAmount},</when></choose>
+                <choose><when test="item.isPromotion!=null">#{item.isPromotion},</when></choose>
+                <choose><when test="item.discount!=null">#{item.discount},</when></choose>
+                <choose><when test="item.referer!=null">#{item.referer},</when></choose>
+                <choose><when test="item.isPay!=null">#{item.isPay},</when></choose>
+                <choose><when test="item.payTime!=null">#{item.payTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="item.haveGift!=null">#{item.haveGift},</when></choose>
+                <choose><when test="item.giftDetail!=null">#{item.giftDetail},</when></choose>
+                <choose><when test="item.createTime!=null">#{item.createTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="item.updateTime!=null">#{item.updateTime,jdbcType=TIMESTAMP},</when></choose>
+        </trim>
+    </sql>
+    <sql id="updateSetSql">
+        <set>
+                    <choose> <when test="userId!=null">`user_id`=#{userId}</when> <otherwise> `user_id`=NULL</otherwise> </choose>,
+                    <choose> <when test="orderAmount!=null">`order_amount`=#{orderAmount}</when> <otherwise> `order_amount`=NULL</otherwise> </choose>,
+                    <choose> <when test="isPromotion!=null">`is_promotion`=#{isPromotion}</when> <otherwise> `is_promotion`=NULL</otherwise> </choose>,
+                    <choose> <when test="discount!=null">`discount`=#{discount}</when> <otherwise> `discount`=NULL</otherwise> </choose>,
+                    <choose> <when test="referer!=null">`referer`=#{referer}</when> <otherwise> `referer`=NULL</otherwise> </choose>,
+                    <choose> <when test="isPay!=null">`is_pay`=#{isPay}</when> <otherwise> `is_pay`=NULL</otherwise> </choose>,
+                    <choose> <when test="payTime!=null">`pay_time`=#{payTime,jdbcType=TIMESTAMP}</when> <otherwise> `pay_time`=NULL</otherwise> </choose>,
+                    <choose> <when test="haveGift!=null">`have_gift`=#{haveGift}</when> <otherwise> `have_gift`=NULL</otherwise> </choose>,
+                    <choose> <when test="giftDetail!=null">`gift_detail`=#{giftDetail}</when> <otherwise> `gift_detail`=NULL</otherwise> </choose>,
+                    <choose> <when test="createTime!=null">`create_time`=#{createTime,jdbcType=TIMESTAMP}</when> <otherwise> `create_time`=NULL</otherwise> </choose>,
+                    <choose> <when test="updateTime!=null">`update_time`=#{updateTime,jdbcType=TIMESTAMP}</when> <otherwise> `update_time`=NULL</otherwise> </choose>,
+        </set>
+    </sql>
+    <sql id="updateSetWithoutNullSql">
+        <set>
+                    <choose><when test="userId!=null">`user_id`=#{userId},</when></choose>
+                    <choose><when test="orderAmount!=null">`order_amount`=#{orderAmount},</when></choose>
+                    <choose><when test="isPromotion!=null">`is_promotion`=#{isPromotion},</when></choose>
+                    <choose><when test="discount!=null">`discount`=#{discount},</when></choose>
+                    <choose><when test="referer!=null">`referer`=#{referer},</when></choose>
+                    <choose><when test="isPay!=null">`is_pay`=#{isPay},</when></choose>
+                    <choose><when test="payTime!=null">`pay_time`=#{payTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose><when test="haveGift!=null">`have_gift`=#{haveGift},</when></choose>
+                    <choose><when test="giftDetail!=null">`gift_detail`=#{giftDetail},</when></choose>
+                    <choose><when test="createTime!=null">`create_time`=#{createTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose><when test="updateTime!=null">`update_time`=#{updateTime,jdbcType=TIMESTAMP},</when></choose>
+        </set>
+    </sql>
+    <sql id="magicalcoderPkWhereSql">
+        where 1=1
+            and `id` = #{magicalCoderPrimaryKeyName}
+    </sql>
+    <sql id="updatePkWhereSql">
+        where 1=1
+            and `id` = #{id}
+    </sql>
+    <sql id="batchUpdateSetSql">
+        <set>
+                    <choose> <when test="item.userId!=null">`user_id`=#{item.userId}</when> <otherwise> `user_id`=NULL</otherwise> </choose>,
+                    <choose> <when test="item.orderAmount!=null">`order_amount`=#{item.orderAmount}</when> <otherwise> `order_amount`=NULL</otherwise> </choose>,
+                    <choose> <when test="item.isPromotion!=null">`is_promotion`=#{item.isPromotion}</when> <otherwise> `is_promotion`=NULL</otherwise> </choose>,
+                    <choose> <when test="item.discount!=null">`discount`=#{item.discount}</when> <otherwise> `discount`=NULL</otherwise> </choose>,
+                    <choose> <when test="item.referer!=null">`referer`=#{item.referer}</when> <otherwise> `referer`=NULL</otherwise> </choose>,
+                    <choose> <when test="item.isPay!=null">`is_pay`=#{item.isPay}</when> <otherwise> `is_pay`=NULL</otherwise> </choose>,
+                    <choose> <when test="item.payTime!=null">`pay_time`=#{item.payTime,jdbcType=TIMESTAMP}</when> <otherwise> `pay_time`=NULL</otherwise> </choose>,
+                    <choose> <when test="item.haveGift!=null">`have_gift`=#{item.haveGift}</when> <otherwise> `have_gift`=NULL</otherwise> </choose>,
+                    <choose> <when test="item.giftDetail!=null">`gift_detail`=#{item.giftDetail}</when> <otherwise> `gift_detail`=NULL</otherwise> </choose>,
+                    <choose> <when test="item.createTime!=null">`create_time`=#{item.createTime,jdbcType=TIMESTAMP}</when> <otherwise> `create_time`=NULL</otherwise> </choose>,
+                    <choose> <when test="item.updateTime!=null">`update_time`=#{item.updateTime,jdbcType=TIMESTAMP}</when> <otherwise> `update_time`=NULL</otherwise> </choose>,
+        </set>
+    </sql>
+    <sql id="batchUpdateWithoutNullSetSql">
+        <set>
+                    <choose> <when test="item.userId!=null">`user_id`=#{item.userId},</when></choose>
+                    <choose> <when test="item.orderAmount!=null">`order_amount`=#{item.orderAmount},</when></choose>
+                    <choose> <when test="item.isPromotion!=null">`is_promotion`=#{item.isPromotion},</when></choose>
+                    <choose> <when test="item.discount!=null">`discount`=#{item.discount},</when></choose>
+                    <choose> <when test="item.referer!=null">`referer`=#{item.referer},</when></choose>
+                    <choose> <when test="item.isPay!=null">`is_pay`=#{item.isPay},</when></choose>
+                    <choose> <when test="item.payTime!=null">`pay_time`=#{item.payTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose> <when test="item.haveGift!=null">`have_gift`=#{item.haveGift},</when></choose>
+                    <choose> <when test="item.giftDetail!=null">`gift_detail`=#{item.giftDetail},</when></choose>
+                    <choose> <when test="item.createTime!=null">`create_time`=#{item.createTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose> <when test="item.updateTime!=null">`update_time`=#{item.updateTime,jdbcType=TIMESTAMP},</when></choose>
+        </set>
+    </sql>
+    <sql id="batchUpdatePkWhereSql">
+        where 1=1
+            and `id` = #{item.id}
+    </sql>
+    <!-- 这里可以加上数据库名称 方便的切换数据库-->
+    <sql id="tableSql">
+        caho_dental.order_info
+    </sql>
+
+   <sql id="whereSqlModel">
+        <if test="id!=null "> and `id` = #{id}</if>
+        <if test="userId!=null "> and `user_id` = #{userId}</if>
+        <if test="orderAmount!=null "> and `order_amount` = #{orderAmount}</if>
+        <if test="isPromotion!=null "> and `is_promotion` = #{isPromotion}</if>
+        <if test="discount!=null "> and `discount` = #{discount}</if>
+        <if test="referer!=null "> and `referer` = #{referer}</if>
+        <if test="isPay!=null "> and `is_pay` = #{isPay}</if>
+        <if test="payTime!=null "> and `pay_time` = #{payTime,jdbcType=TIMESTAMP}</if>
+        <if test="haveGift!=null "> and `have_gift` = #{haveGift}</if>
+        <if test="giftDetail!=null "> and `gift_detail` = #{giftDetail}</if>
+        <if test="createTime!=null "> and `create_time` = #{createTime,jdbcType=TIMESTAMP}</if>
+        <if test="updateTime!=null "> and `update_time` = #{updateTime,jdbcType=TIMESTAMP}</if>
+                <if test="idFirst!=null "> and `id` <![CDATA[=]]>
+                            #{idFirst}
+                </if>
+        <!--<if test="whereSql!=null"> ${whereSql}</if>-->
+    </sql>
+
+    <sql id="safeGroupBy">
+        <if test="safeGroupBy!=null and safeGroupBy!=''">
+            group by
+            <choose>
+                <when test="safeGroupBy != null and safeGroupBy == 'id'">  `id` </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'user_id'">  `user_id` </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'order_amount'">  `order_amount` </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'is_promotion'">  `is_promotion` </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'discount'">  `discount` </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'referer'">  `referer` </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'is_pay'">  `is_pay` </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'pay_time'">  `pay_time` </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'have_gift'">  `have_gift` </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'gift_detail'">  `gift_detail` </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'create_time'">  `create_time` </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'update_time'">  `update_time` </when>
+            </choose>
+        </if>
+    </sql>
+    <sql id="safeOrderBy">
+        <if test="safeOrderBy!=null and safeOrderBy!=''">
+            <choose>
+                <when test="safeOrderBy != null and safeOrderBy == 'id desc'"> order by  `id` desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'id asc'"> order by `id` asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'user_id desc'"> order by  `user_id` desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'user_id asc'"> order by `user_id` asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'order_amount desc'"> order by  `order_amount` desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'order_amount asc'"> order by `order_amount` asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'is_promotion desc'"> order by  `is_promotion` desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'is_promotion asc'"> order by `is_promotion` asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'discount desc'"> order by  `discount` desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'discount asc'"> order by `discount` asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'referer desc'"> order by  `referer` desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'referer asc'"> order by `referer` asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'is_pay desc'"> order by  `is_pay` desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'is_pay asc'"> order by `is_pay` asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'pay_time desc'"> order by  `pay_time` desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'pay_time asc'"> order by `pay_time` asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'have_gift desc'"> order by  `have_gift` desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'have_gift asc'"> order by `have_gift` asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'gift_detail desc'"> order by  `gift_detail` desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'gift_detail asc'"> order by `gift_detail` asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'create_time desc'"> order by  `create_time` desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'create_time asc'"> order by `create_time` asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'update_time desc'"> order by  `update_time` desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'update_time asc'"> order by `update_time` asc </when>
+            </choose>
+        </if>
+    </sql>
+
+    <sql id="orderGroupLimit">
+        <include refid="safeGroupBy"/>
+        <if test="notSafeGroupBy != null and notSafeGroupBy != ''"> group by ${notSafeGroupBy}</if>
+        <include refid="safeOrderBy"/>
+        <if test="notSafeOrderBy != null and notSafeOrderBy != ''"> order by ${notSafeOrderBy}</if>
+        <if test="limit != null"> LIMIT <if test="start != null">#{start},</if>#{limit} </if>
+    </sql>
+
+</mapper>

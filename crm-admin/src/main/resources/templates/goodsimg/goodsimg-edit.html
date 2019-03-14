@@ -1,0 +1,56 @@
+<!--
+代码为自动生成 Created by www.magicalcoder.com
+ 如果你改变了此类 read 请将此行删除
+ 欢迎加入官方QQ群:323237052
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v102/include/head :: commonHead('商品图集编辑')"/>
+
+<body class="childrenBody layui-hide">
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-card-header">
+
+            </div>
+            <div class="layui-card-body">
+                <form class="layui-form">
+                    <div class="layui-form-item security_edit_form_param_imgId">
+                        <label class="layui-form-label">主键</label>
+                        <div class="layui-input-block">
+                            <input type="text" disabled="true" class="layui-input" name="imgId"  placeholder="主键自动生成，无需手动编辑,如果重置则变成增加数据"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item security_edit_form_param_imgSrc">
+                        <label class="layui-form-label">图片地址</label>
+                        <div class="layui-input-block">
+                        <a name="imgSrcFileUpload" class="magicalcoder-layupload layui-btn a_imgSrc " mc-attr-auto="true" mc-attr-accept-mime="images" mc-attr-multiple="false" mc-attr-drag="true" mc-attr-exts="jpg|png|gif|bmp|jpeg" mc-attr-accept="images" >
+                            <i class="layui-icon" >&#xe67c;</i>上传文件或图片
+                        </a>
+                        <input class=" layui-input" name="imgSrc" type="text" lay-verify="magicalCoderVerify" magicalcoder-verify="" value=""  placeholder="请输入图片地址" />
+                        <div class="layui-upload-list">
+                            <img class="layui-textarea layui-upload-img img_imgSrc" />
+                        </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item security_edit_form_param_goodsId">
+                        <label class="layui-form-label">所属商品</label>
+                        <div class="layui-input-block">
+                        <select name="goodsId"  data-url="admin/goods_rest/search" data-id="id" data-text-fields="goodsName,imgSrc" class="magicalcoder-foreign-select2 layui-input" lay-ignore="true" lay-verify="magicalCoderVerify" magicalcoder-verify="" data-value=""  placeholder="请输入所属商品" data-limit="20"><option value=""></option></select>
+                        </div>
+                    </div>
+                    <!--把下面的按钮移动到form外面 键盘回车事件就取消了 -->
+                    <div class="layui-form-item ">
+                        <div class="layui-input-block">
+                            <button class="layui-btn security_edit_form_operate_save" lay-submit="" lay-filter="save">立即提交</button>
+                            <button type="reset" class="layui-hide layui-btn layui-btn-primary" >重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div th:replace="magicalcoder/v102/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/goodsimg/goodsimg-edit.js}"></script>
+</body>
+</html>
